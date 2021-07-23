@@ -13,6 +13,9 @@ public class InputHandler : MonoBehaviour
     private Vector3 _mousePosition;
     public Vector3 MousePosition => _mousePosition;
 
+    private bool _hasPressedFire1;
+    public bool HasPressedFire1 => _hasPressedFire1;
+
     private Camera _camera;
 
     void Start()
@@ -25,5 +28,6 @@ public class InputHandler : MonoBehaviour
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
         _mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        _hasPressedFire1 = Input.GetButtonDown("Fire1");
     }
 }

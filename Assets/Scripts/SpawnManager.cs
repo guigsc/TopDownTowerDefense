@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float _spawnRate;
 
     private float _radius = 20f;
-    private float _spawnHeight = 0.75f;
+    private float _spawnHeight = 2f;
     private float _nextSpawn;
     
     void Update()
