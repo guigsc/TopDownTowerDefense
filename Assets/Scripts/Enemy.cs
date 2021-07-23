@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     
     [SerializeField] private float speed = 2f;
     [SerializeField] private int attackDamage = 10;
+    [SerializeField] private int health = 10;
 
     private Rigidbody _rigidbody;
 
@@ -46,8 +47,17 @@ public class Enemy : MonoBehaviour
         _rigidbody.MoveRotation(lookAtRotation); 
     }
 
-    void MoveTowards(Vector3 direction)
+    private void MoveTowards(Vector3 direction)
     {
         _rigidbody.MovePosition(_rigidbody.position + direction.normalized * speed * Time.fixedDeltaTime);
+    }
+
+    public void DealDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
