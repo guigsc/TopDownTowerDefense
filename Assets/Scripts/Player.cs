@@ -30,7 +30,11 @@ public class Player : MonoBehaviour
 
     private void Aim()
     {
-        transform.LookAt(new Vector3(_inputHandler.MousePosition.x, _head.position.y, _inputHandler.MousePosition.z));
+        Vector3 direction = (_inputHandler.MousePosition - transform.position).normalized;
+        Vector3 lookAtDirection = new Vector3(direction.x, 0, direction.z);
+        _rigidbody.MoveRotation(Quaternion.LookRotation(lookAtDirection));
+
+        //transform.LookAt(new Vector3(_inputHandler.MousePosition.x, _head.position.y, _inputHandler.MousePosition.z));
     }
 
     private void Move()
