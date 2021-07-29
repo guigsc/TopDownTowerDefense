@@ -40,7 +40,7 @@ public class Tower : MonoBehaviour
 
         if (_health <= 0)
         {
-            Debug.Log("Game Over");
+            GameManager.Instance.GameOver();
         }
     }
 }
