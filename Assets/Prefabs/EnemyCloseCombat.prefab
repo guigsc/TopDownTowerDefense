@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 1693109551307941716}
   - component: {fileID: 1693109551307941727}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyCloseCombat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,12 +203,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1693109551307941717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b37121e00a954428cfdbb80d0367ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 6572c2815ee48b34eb9457aa19916fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  attackDamage: 10
-  health: 10
+  _health: 10
+  _speed: 2
+  _attackDamage: 10
+  _attackDistance: 2.5
+  _attackRate: 1
 --- !u!54 &1693109551307941727
 Rigidbody:
   m_ObjectHideFlags: 0

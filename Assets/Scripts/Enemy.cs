@@ -1,20 +1,18 @@
-using System;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : Target
 {
     
-    [SerializeField] private float speed = 2f;
-    [SerializeField] private int attackDamage = 10;
-    [SerializeField] private int health = 10;
+    [SerializeField] protected float _speed = 2f;
+    [SerializeField] protected int _attackDamage = 10;
+    [SerializeField] protected float _attackDistance = 2.5f;
+    [SerializeField] protected float _attackRate = 1f;
 
-    private Rigidbody _rigidbody;
+    private float _nextAttack = 0;
 
-    private float attackDistance = 2.5f;
-    private float attackRate = 1f;
-    private float nextAttack = 0;
+    protected Rigidbody _rigidbody;
 
-    private void Start()
+    protected virtual void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
@@ -26,18 +24,18 @@ public class Enemy : MonoBehaviour
         Vector3 towerDirection = Tower.Instance.transform.position - transform.position;
         RotateTowards(towerDirection);
 
-        if (distanceFromTower > attackDistance)
+        if (distanceFromTower > _attackDistance)
             MoveTowards(towerDirection);
         else
-            Attack();
+            StartAttacking();
     }
 
-    private void Attack()
+    private void StartAttacking()
     {
-        if (Time.time > nextAttack)
+        if (Time.time > _nextAttack)
         {
-            nextAttack = Time.time + attackRate;
-            Tower.Instance.DealDamage(attackDamage);
+            _nextAttack = Time.time + _attackRate;
+            Attack();
         }
     }
 
@@ -49,15 +47,13 @@ public class Enemy : MonoBehaviour
 
     private void MoveTowards(Vector3 direction)
     {
-        _rigidbody.MovePosition(_rigidbody.position + direction.normalized * speed * Time.fixedDeltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + direction.normalized * _speed * Time.fixedDeltaTime);
     }
+    
+    protected abstract void Attack();
 
-    public void DealDamage(int damage)
+    protected override void Die()
     {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }
