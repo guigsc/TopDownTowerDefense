@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _speed = 20f;
+    [SerializeField] private TargetEnum _target;
+
+    public event Action<Target> onHit;
 
     private Rigidbody _rigidbody;
 
@@ -20,11 +22,17 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        var target = other.GetComponent<Target>();
+        if (target != null && target.CompareTag(_target.ToString()))
         {
-            Destroy(other.gameObject);
+            Hit(target);
         }
 
         Destroy(gameObject);
+    }
+
+    public void Hit(Target target)
+    {
+        if (onHit != null) onHit.Invoke(target);
     }
 }
